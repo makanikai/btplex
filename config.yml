@@ -1,0 +1,11 @@
+tasks:
+  task-a:
+    rss: http://showrss.info/rss.php?user_id=XXX&hd=1&proper=null
+    all_series: yes
+    transmission:
+      host: localhost
+      port: 9091
+      username: myusername
+      password: mypassword
+      path: /home/plex/tvshows/{{series_name}}/Season {{series_season}}
+      addpaused: no
