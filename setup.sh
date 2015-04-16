@@ -1,3 +1,18 @@
+# This script automates setting up a Plex Media Server on a ServerHub VPS that
+# includes a remote bittorrent client with web interface that automatically
+# downloads your favourite television shows.
+
+echo -n "Enter a Transmission username: "
+read username
+echo -n "Enter a Transmission password: "
+read password
+echo "Find your showRSS user_id."
+echo "Generate your custom feed and get the user_id from the url."
+echo "Example: http://showrss.info/rss.php?user_id=XXXXXX&hd=null&proper=1)"
+echo "where XXXXXX is your user_id."
+echo -n "Enter your showRSS user_id: "
+read showrssid
+
 # Fix up some issues with the default serverhub install of Ubuntu 14.04
 locale-gen $LANG
 dpkg-reconfigure locales
@@ -17,30 +32,32 @@ dpkg -i plexmediaserver_0.9.12.0.1071-7b11cfc_amd64.deb
 
 # Install transmission
 apt-get install -y transmission-cli transmission-common transmission-daemon
-sed -i 's/"rpc-whitelist-enabled": true,/"rpc-whitelist-enabled": false,/g' /etc/transmission-daemon/settings.json
-sed -i 's/"rpc-username": "transmission",/"rpc-username": "myusername",/g' /etc/transmission-daemon/settings.json
-sed -i 's/"rpc-password": "{55d7aa7b6d418fe4a23c864879d0d795c6662f3aJFQhd8LS",/"rpc-password": "mypassword",/g' /etc/transmission-daemon/settings.json
-sed -i 's/"download-dir": "\/var\/lib\/transmission-daemon\/downloads",/"download-dir": "\/home\/plex\/movies",/g' /etc/transmission-daemon/settings.json
+sed -i "s/\"rpc-whitelist-enabled\": true,/\"rpc-whitelist-enabled\": false,/g" /etc/transmission-daemon/settings.json
+sed -i "s/\"rpc-username\": \"transmission\",/\"rpc-username\": \"$username\",/g" /etc/transmission-daemon/settings.json
+sed -i "s/\"rpc-password\": \"{.*\",/\"rpc-password\": \"$password\",/g" /etc/transmission-daemon/settings.json
+sed -i "s/\"download-dir\": \"\/var\/lib\/transmission-daemon\/downloads\",/\"download-dir\": \"\/home\/plex\/movies\",/g" /etc/transmission-daemon/settings.json
 service transmission-daemon reload
 
 # Setup users, groups, directories, permissions
-usermod -a -G plex root
-usermod -a -G plex debian-transmission
 cd /home
 mkdir plex
 mkdir plex/movies
 mkdir plex/tvshows
-# Copy flexget.config.yml to /var/lib/plexmediaserver/.flexget/config.yml
 chown -R plex plex
 chgrp -R plex plex
 chmod -R g+rw plex
 cd /var/lib/plexmediaserver
 mkdir .flexget
 cd .flexget
-wget https://github.com/ryanss/btplex/config.yml
-chmod -R g+rw /var/lib/plexmediaserver
+wget https://raw.githubusercontent.com/ryanss/btplex/master/config.yml
+sed -i "s/XXXXXX/$showrssid/g" config.yml
+sed -i "s/myusername/$username/g" config.yml
+sed -i "s/mypassword/$password/g" config.yml
+chgrp -R plex /var/lib/plexmediaserver
+usermod -a -G plex debian-transmission
 
 # Install FlexGet and trigger first run
+apt-get install -y python-setuptools
 easy_install flexget transmissionrpc
 echo "0 * * * * /usr/local/bin/flexget execute --cron" > cron-file.txt
 crontab -u plex cron-file.txt

@@ -50,7 +50,7 @@ Installation
 $ ssh root@myvps.mooo.com -L 8888:localhost:32400
 
 # Download and run the setup script
-$ curl https://github.com/ryanss/btplex/setup.sh | sh
+$ wget https://raw.githubusercontent.com/ryanss/btplex/master/setup.sh && sh setup.sh
 ```
 
 Enable remote access by visiting
