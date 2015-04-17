@@ -1,6 +1,6 @@
 tasks:
   task-a:
-    rss: http://showrss.info/rss.php?user_id=XXXXXX&hd=null&proper=1
+    rss: http://showrss.info/rss.php?user_id=XXXXXX&hd=1&proper=1
     all_series: yes
     transmission:
       host: localhost

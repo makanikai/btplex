@@ -32,6 +32,9 @@ dpkg -i plexmediaserver_0.9.12.0.1071-7b11cfc_amd64.deb
 
 # Install transmission
 apt-get install -y transmission-cli transmission-common transmission-daemon
+usermod -a -G plex debian-transmission
+service transmission-daemon restart
+sleep 3
 sed -i "s/\"rpc-whitelist-enabled\": true,/\"rpc-whitelist-enabled\": false,/g" /etc/transmission-daemon/settings.json
 sed -i "s/\"rpc-username\": \"transmission\",/\"rpc-username\": \"$username\",/g" /etc/transmission-daemon/settings.json
 sed -i "s/\"rpc-password\": \"{.*\",/\"rpc-password\": \"$password\",/g" /etc/transmission-daemon/settings.json
@@ -53,8 +56,9 @@ wget https://raw.githubusercontent.com/ryanss/btplex/master/config.yml
 sed -i "s/XXXXXX/$showrssid/g" config.yml
 sed -i "s/myusername/$username/g" config.yml
 sed -i "s/mypassword/$password/g" config.yml
+chown -R plex /var/lib/plexmediaserver
 chgrp -R plex /var/lib/plexmediaserver
-usermod -a -G plex debian-transmission
+chmod -R g+rw /var/lib/plexmediaserver
 
 # Install FlexGet and trigger first run
 apt-get install -y python-setuptools
@@ -62,4 +66,4 @@ easy_install flexget transmissionrpc
 echo "0 * * * * /usr/local/bin/flexget execute --cron" > cron-file.txt
 crontab -u plex cron-file.txt
 rm cron-file.txt
-flexget execute
+sudo -H -u plex flexget execute
