@@ -33,6 +33,10 @@ dpkg -i plexmediaserver_0.9.12.0.1071-7b11cfc_amd64.deb
 # Install transmission
 apt-get install -y transmission-cli transmission-common transmission-daemon
 usermod -a -G plex debian-transmission
+sed -i "s/setuid debian-transmission/setuid plex/g" /etc/init/transmission-daemon.conf
+sed -i "s/setgid debian-transmission/setgid plex/g" /etc/init/transmission-daemon.conf
+chown -R plex:plex /var/lib/transmission-daemon
+chown plex:plex /etc/transmission-daemon/settings.json
 service transmission-daemon restart
 sleep 3
 sed -i "s/\"rpc-whitelist-enabled\": true,/\"rpc-whitelist-enabled\": false,/g" /etc/transmission-daemon/settings.json
