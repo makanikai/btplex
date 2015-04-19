@@ -27,7 +27,7 @@ unattended-upgrade
 
 
 # Install Plex Media Server
-wget https://downloads.plex.tv/plex-media-server/0.9.12.0.1071-7b11cfc/plexmediaserver_0.9.12.0.1071-7b11cfc_amd64.deb
+wget https://downloads.plex.tv/plex-media-server/0.9.12.1.1079-b655370/plexmediaserver_0.9.12.1.1079-b655370_amd64.deb
 dpkg -i plexmediaserver_0.9.12.0.1071-7b11cfc_amd64.deb
 
 # Install transmission
