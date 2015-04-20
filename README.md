@@ -2,28 +2,27 @@ btPlex
 ======
 
 This repository contains a shell script and config files for automatically
-setting up a Plex Media Server on a ServerHub VPS that includes a remote
+setting up a Plex Media Server on a DigitalOcean VPS that includes a remote
 bittorrent client with web interface that automatically downloads your
 favourite television shows.
 
 Before running the script, lets setup some necessary accounts:
 
 
-### ServerHub
+### DigitalOcean
 
-* http://www.serverhub.com/vps/ssd-cached/
-* This setup runs well on the $5/month plan. Anything less than 512MB of memory
-  might be pushing it.
-* Rebuild a fresh VPS using the `ubuntu-14.04-x86_64` image.
+* https://www.digitalocean.com
+* This setup runs well on the $5/month plan.
+* Create a fresh droplet using the Ubuntu 14.04 x64 image.
 
 
 ### Free DNS (optional)
 
 * http://freedns.afraid.org
 * Setting up a DNS is convenient because you just have to remember a domain
-  like myvps.mooo.com instead of an IP address like 104.31.85.187.
+  like myvps.mooo.com instead of an IP address like 123.123.123.123.
 * Once you've created an account add a new subdomain using the IP address of
-  your new ServerHub VPS.
+  your new DigitalOcean VPS.
 
 
 ### Plex
