@@ -31,12 +31,20 @@ Before running the script, lets setup some necessary accounts:
 * A Plex account is required to access a remote Plex Media Server. This is a
   free account and does not require the "Plex Pass".
 
+
 ### showRSS
 
 * http://showrss.info
 * Sign up for a showRSS account and select your favourite television shows. The
   RSS feed that is created for you is what the server will use to download your
   shows.
+
+
+### PrivateInternetAccess VPN
+
+* https://www.privateinternetaccess.com
+* If your VPS downloads torrents without a VPN it will likely get shutdown very
+  quickly.
 
 
 Installation
@@ -62,3 +70,8 @@ the Transmission BitTorrent client web interface via
 http://myvps.mooo.com:9091. You should already see the latest television shows
 downloading in Transmission and they will automatically be added to Plex once
 they are done downloading.
+
+Check that OpenVPN is working by adding the following torrent to transmission
+and checking that the IP address shown is not the IP address of your
+DigitalOcean VPS.
+`http://checkmytorrentip.net/torrentip/checkMyTorrentIp.png.torrent`

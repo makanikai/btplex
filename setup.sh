@@ -12,6 +12,10 @@ echo "Example: http://showrss.info/rss.php?user_id=XXXXXX&hd=null&proper=1)"
 echo "where XXXXXX is your user_id."
 echo -n "Enter your showRSS user_id: "
 read showrssid
+echo -n "Enter PrivateInternetAccess VPN username (pXXXXXXX): "
+read piauser
+echo -n "Enter PrivateInternetAccess VPN password: "
+read piapass
 
 # Update software
 apt-get update
@@ -35,6 +39,22 @@ sed -i "s/\"rpc-username\": \"transmission\",/\"rpc-username\": \"$username\",/g
 sed -i "s/\"rpc-password\": \"{.*\",/\"rpc-password\": \"$password\",/g" /etc/transmission-daemon/settings.json
 sed -i "s/\"download-dir\": \"\/var\/lib\/transmission-daemon\/downloads\",/\"download-dir\": \"\/home\/plex\/movies\",/g" /etc/transmission-daemon/settings.json
 service transmission-daemon reload
+
+# Install and setup OpenVPN
+apt-get install -y openvpn unzip
+cd /etc/openvpn
+wget https://www.privateinternetaccess.com/openvpn/openvpn.zip
+unzip openvpn.zip
+echo $piauser > login.conf
+echo $piapass >> login.conf
+echo "auth-user-pass login.conf" >> US\ East.ovpn
+ip=`ip route show | sed -n 2p | awk '{print $NF}'`
+subnet=`ip route show | sed -n 2p | cut -d' ' -f1-3`
+gateway=`route | sed -n 3p | awk '{print $2}'`
+ip rule add from $ip table 128
+ip route add table 128 to $subnet
+ip route add table 128 default via $gateway
+openvpn US\ Easy.ovpn &
 
 # Setup users, groups, directories, permissions
 cd /home
