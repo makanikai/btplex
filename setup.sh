@@ -38,6 +38,8 @@ sed -i "s/\"rpc-whitelist-enabled\": true,/\"rpc-whitelist-enabled\": false,/g" 
 sed -i "s/\"rpc-username\": \"transmission\",/\"rpc-username\": \"$username\",/g" /etc/transmission-daemon/settings.json
 sed -i "s/\"rpc-password\": \"{.*\",/\"rpc-password\": \"$password\",/g" /etc/transmission-daemon/settings.json
 sed -i "s/\"download-dir\": \"\/var\/lib\/transmission-daemon\/downloads\",/\"download-dir\": \"\/home\/plex\/movies\",/g" /etc/transmission-daemon/settings.json
+sed -i "s/\"ratio-limit-enabled\": false,/\"ratio-limit-enabled\": true,/g" /etc/transmission-daemon/settings.json
+sed -i "s/\"idle-seeding-limit-enabled\": false,/\"idle-seeding-limit-enabled\": true,/g" /etc/transmission-daemon/settings.json
 service transmission-daemon reload
 
 # Install and setup OpenVPN
