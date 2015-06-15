@@ -56,7 +56,7 @@ gateway=`route | sed -n 3p | awk '{print $2}'`
 ip rule add from $ip table 128
 ip route add table 128 to $subnet
 ip route add table 128 default via $gateway
-openvpn US\ Easy.ovpn &
+openvpn US\ East.ovpn &
 
 # Setup users, groups, directories, permissions
 cd /home
