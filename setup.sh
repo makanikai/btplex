@@ -1,4 +1,4 @@
-# This script automates setting up a Plex Media Server on a DigitalOcean VPS
+# This script automates setting up a Plex Media Server on a Vultr VPS
 # that includes a remote bittorrent client with web interface that
 # automatically downloads your favourite television shows.
 

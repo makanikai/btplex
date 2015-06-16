@@ -2,18 +2,18 @@ btPlex
 ======
 
 This repository contains a shell script and config files for automatically
-setting up a Plex Media Server on a DigitalOcean VPS that includes a remote
+setting up a Plex Media Server on a Vultr VPS that includes a remote
 bittorrent client with web interface that automatically downloads your
 favourite television shows.
 
 Before running the script, lets setup some necessary accounts:
 
 
-### DigitalOcean
+### Vultr VPS
 
-* https://www.digitalocean.com
+* https://www.vultr.com
 * This setup runs well on the $5/month plan.
-* Create a fresh droplet using the Ubuntu 14.04 x64 image.
+* Deploy a new $5/month Storage Instance running Ubuntu 14.04 x64.
 
 
 ### Free DNS (optional)
@@ -22,7 +22,7 @@ Before running the script, lets setup some necessary accounts:
 * Setting up a DNS is convenient because you just have to remember a domain
   like myvps.mooo.com instead of an IP address like 123.123.123.123.
 * Once you've created an account add a new subdomain using the IP address of
-  your new DigitalOcean VPS.
+  your new Vultr VPS.
 
 
 ### Plex
@@ -73,5 +73,5 @@ they are done downloading.
 
 Check that OpenVPN is working by adding the following torrent to transmission
 and checking that the IP address shown is not the IP address of your
-DigitalOcean VPS.
+Vultr VPS.
 `http://checkmytorrentip.net/torrentip/checkMyTorrentIp.png.torrent`
