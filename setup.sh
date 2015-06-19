@@ -19,7 +19,8 @@ read piapass
 
 # Update software
 apt-get update
-apt-get upgrade -y
+apt-get install -y unattended-upgrades
+unattended-upgrade
 
 # Install Plex Media Server
 wget https://downloads.plex.tv/plex-media-server/0.9.12.1.1079-b655370/plexmediaserver_0.9.12.1.1079-b655370_amd64.deb
