@@ -21,6 +21,8 @@ read piapass
 apt-get update
 apt-get install -y unattended-upgrades
 unattended-upgrade
+echo "APT::Periodic::Update-Package-Lists \"1\";" > /etc/apt/apt.conf.d/20auto-upgrades
+echo "APT::Periodic::Unattended-Upgrade \"1\";" >> /etc/apt/apt.conf.d/20auto-upgrades
 
 # Install Plex Media Server
 wget https://downloads.plex.tv/plex-media-server/0.9.12.1.1079-b655370/plexmediaserver_0.9.12.1.1079-b655370_amd64.deb
