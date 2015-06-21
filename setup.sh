@@ -25,8 +25,8 @@ echo "APT::Periodic::Update-Package-Lists \"1\";" > /etc/apt/apt.conf.d/20auto-u
 echo "APT::Periodic::Unattended-Upgrade \"1\";" >> /etc/apt/apt.conf.d/20auto-upgrades
 
 # Install Plex Media Server
-wget https://downloads.plex.tv/plex-media-server/0.9.12.1.1079-b655370/plexmediaserver_0.9.12.1.1079-b655370_amd64.deb
-dpkg -i plexmediaserver_0.9.12.1.1079-b655370_amd64.deb
+wget https://downloads.plex.tv/plex-media-server/0.9.12.4.1192-9a47d21/plexmediaserver_0.9.12.4.1192-9a47d21_amd64.deb
+dpkg -i plexmediaserver_0.9.12.4.1192-9a47d21_amd64.deb
 
 # Install transmission
 apt-get install -y transmission-cli transmission-common transmission-daemon
