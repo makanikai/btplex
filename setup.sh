@@ -84,7 +84,10 @@ chmod -R g+rw /var/lib/plexmediaserver
 apt-get install -y python-setuptools
 apt-get remove -y python-six
 easy_install flexget transmissionrpc
+# Check for new television episodes at the top of every hour
 echo "0 * * * * /usr/local/bin/flexget execute --cron" > cron-file.txt
+# Clean up directories where the video file was deleted by Plex at 5:30 AM every day
+echo "30 5 * * * du /home/plex/{movies,tvshows} | while read size filename; do if [ $size -lt 50000 ]; then rm -rf '$filename'; fi done" >> cron-file.txt
 crontab -u plex cron-file.txt
 rm cron-file.txt
 sudo -H -u plex flexget execute
