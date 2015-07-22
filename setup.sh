@@ -53,13 +53,15 @@ unzip openvpn.zip
 echo $piauser > login.conf
 echo $piapass >> login.conf
 echo "auth-user-pass login.conf" >> US\ East.ovpn
-ip=`ip route show | sed -n 2p | awk '{print $NF}'`
-subnet=`ip route show | sed -n 2p | cut -d' ' -f1-3`
-gateway=`route | sed -n 3p | awk '{print $2}'`
-ip rule add from $ip table 128
-ip route add table 128 to $subnet
-ip route add table 128 default via $gateway
-openvpn US\ East.ovpn &
+cp US\ East.ovpn us_east.conf
+echo "AUTOSTART=\"us_east\"" >> /etc/default/openvpn
+echo "ip=`ip route show | sed -n 2p | awk '{print $NF}'`" >> /etc/network/if-up.d/openvpn
+echo "subnet=`ip route show | sed -n 2p | cut -d' ' -f1-3`" >> /etc/network/if-up.d/openvpn
+echo "gateway=`route | sed -n 3p | awk '{print $2}'`" >> /etc/network/if-up.d/openvpn
+echo "ip rule add from $ip table 128" >> /etc/network/if-up.d/openvpn
+echo "ip route add table 128 to $subnet" >> /etc/network/if-up.d/openvpn
+echo "ip route add table 128 default via $gateway" >> /etc/network/if-up.d/openvpn
+service openvpn start
 
 # Setup users, groups, directories, permissions
 cd /home
