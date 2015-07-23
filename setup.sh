@@ -90,6 +90,8 @@ easy_install flexget transmissionrpc
 echo "0 * * * * /usr/local/bin/flexget execute --cron" > cron-file.txt
 # Clean up directories where the video file was deleted by Plex at 5:30 AM every day
 echo "30 5 * * * du /home/plex/{movies,tvshows}/* | while read size filename; do if [ $size -lt 70000 ]; then rm -rf \"$filename\"; fi done" >> cron-file.txt
+# Restart OpenVPN if it gets disconnected
+echo "59 * * * * tun=$(ifconfig | grep -c tun0); if [ $tun -eq 0 ]; then service openvpn restart; fi" >> cron-file.txt
 crontab -u plex cron-file.txt
 rm cron-file.txt
 sudo -H -u plex flexget execute
