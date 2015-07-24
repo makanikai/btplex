@@ -87,11 +87,15 @@ apt-get install -y python-setuptools
 apt-get remove -y python-six
 easy_install flexget transmissionrpc
 # Check for new television episodes at the top of every hour
-echo "0 * * * * /usr/local/bin/flexget execute --cron" > cron-file.txt
+echo "SHELL=/bin/bash" > cron-file.txt
+echo "0 * * * * /usr/local/bin/flexget execute --cron" >> cron-file.txt
 # Clean up directories where the video file was deleted by Plex at 5:30 AM every day
-echo "30 5 * * * du /home/plex/{movies,tvshows}/* | while read size filename; do if [ $size -lt 70000 ]; then rm -rf \"$filename\"; fi done" >> cron-file.txt
-# Restart OpenVPN if it gets disconnected
-echo "59 * * * * tun=$(ifconfig | grep -c tun0); if [ $tun -eq 0 ]; then service openvpn restart; fi" >> cron-file.txt
+echo "30 5 * * * du /home/plex/{movies,tvshows}/* | while read size filename; do if [ \$size -lt 70000 ]; then rm -rf \"\$filename\"; fi done" >> cron-file.txt
 crontab -u plex cron-file.txt
+# Restart OpenVPN if it gets disconnected
+echo "SHELL=/bin/bash" > cron-file.txt
+echo "PATH=/bin:/usr/bin:/sbin" >> cron-file.txt
+echo "59 * * * * tun=\$(ifconfig | grep -c tun0); if [ \$tun -eq 0 ]; then service openvpn restart; fi" >> cron-file.txt
+crontab cron-file.txt
 rm cron-file.txt
 sudo -H -u plex flexget execute
