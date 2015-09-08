@@ -74,10 +74,19 @@ chmod -R g+rw plex
 cd /var/lib/plexmediaserver
 mkdir .flexget
 cd .flexget
-wget https://raw.githubusercontent.com/ryanss/btplex/master/config.yml
-sed -i "s/XXXXXX/$showrssid/g" config.yml
-sed -i "s/myusername/$username/g" config.yml
-sed -i "s/mypassword/$password/g" config.yml
+cat > config.yml << EOF
+tasks:
+  task-a:
+    rss: http://showrss.info/rss.php?user_id=$showrssid&hd=1&proper=1
+    all_series: yes
+    transmission:
+      host: localhost
+      port: 9091
+      username: $username
+      password: $password
+      path: /home/plex/tvshows/{{series_name}}/Season {{series_season}}
+      addpaused: no
+EOF
 chown -R plex /var/lib/plexmediaserver
 chgrp -R plex /var/lib/plexmediaserver
 chmod -R g+rw /var/lib/plexmediaserver
