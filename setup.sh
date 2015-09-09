@@ -12,10 +12,12 @@ echo "Example: http://showrss.info/rss.php?user_id=XXXXXX&hd=null&proper=1)"
 echo "where XXXXXX is your user_id."
 echo -n "Enter your showRSS user_id: "
 read showrssid
-echo -n "Enter PrivateInternetAccess VPN username (pXXXXXXX): "
+echo -n "Enter PrivateInternetAccess VPN username (pXXXXXXX) or leave blank for no VPN: "
 read piauser
-echo -n "Enter PrivateInternetAccess VPN password: "
-read piapass
+if [ ! -z "$piauser" ]; then
+    echo -n "Enter PrivateInternetAccess VPN password: "
+    read piapass
+fi
 
 # Update software
 apt-get update
@@ -46,22 +48,24 @@ sed -i "s/\"idle-seeding-limit-enabled\": false,/\"idle-seeding-limit-enabled\":
 service transmission-daemon reload
 
 # Install and setup OpenVPN
-apt-get install -y openvpn unzip
-cd /etc/openvpn
-wget https://www.privateinternetaccess.com/openvpn/openvpn.zip
-unzip openvpn.zip
-echo $piauser > login.conf
-echo $piapass >> login.conf
-echo "auth-user-pass login.conf" >> US\ East.ovpn
-cp US\ East.ovpn us_east.conf
-echo "AUTOSTART=\"us_east\"" >> /etc/default/openvpn
-echo "ip=`ip route show | sed -n 2p | awk '{print $NF}'`" >> /etc/network/if-up.d/openvpn
-echo "subnet=`ip route show | sed -n 2p | cut -d' ' -f1-3`" >> /etc/network/if-up.d/openvpn
-echo "gateway=`route | sed -n 3p | awk '{print $2}'`" >> /etc/network/if-up.d/openvpn
-echo "ip rule add from $ip table 128" >> /etc/network/if-up.d/openvpn
-echo "ip route add table 128 to $subnet" >> /etc/network/if-up.d/openvpn
-echo "ip route add table 128 default via $gateway" >> /etc/network/if-up.d/openvpn
-service openvpn start
+if [ ! -z "$piauser" ]; then
+    apt-get install -y openvpn unzip
+    cd /etc/openvpn
+    wget https://www.privateinternetaccess.com/openvpn/openvpn.zip
+    unzip openvpn.zip
+    echo $piauser > login.conf
+    echo $piapass >> login.conf
+    echo "auth-user-pass login.conf" >> US\ East.ovpn
+    cp US\ East.ovpn us_east.conf
+    echo "AUTOSTART=\"us_east\"" >> /etc/default/openvpn
+    echo "ip=`ip route show | sed -n 2p | awk '{print $NF}'`" >> /etc/network/if-up.d/openvpn
+    echo "subnet=`ip route show | sed -n 2p | cut -d' ' -f1-3`" >> /etc/network/if-up.d/openvpn
+    echo "gateway=`route | sed -n 3p | awk '{print $2}'`" >> /etc/network/if-up.d/openvpn
+    echo "ip rule add from $ip table 128" >> /etc/network/if-up.d/openvpn
+    echo "ip route add table 128 to $subnet" >> /etc/network/if-up.d/openvpn
+    echo "ip route add table 128 default via $gateway" >> /etc/network/if-up.d/openvpn
+    service openvpn start
+fi
 
 # Setup users, groups, directories, permissions
 cd /home
