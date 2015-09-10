@@ -1,21 +1,23 @@
+#!/bin/sh
+
 # This script automates setting up a Plex Media Server on a Vultr VPS
 # that includes a remote bittorrent client with web interface that
 # automatically downloads your favourite television shows.
 
-echo -n "Enter a Transmission username: "
+echo "Enter a Transmission username: \c"
 read username
-echo -n "Enter a Transmission password: "
+echo "Enter a Transmission password: \c"
 read password
 echo "Find your showRSS user_id."
 echo "Generate your custom feed and get the user_id from the url."
 echo "Example: http://showrss.info/rss.php?user_id=XXXXXX&hd=null&proper=1)"
 echo "where XXXXXX is your user_id."
-echo -n "Enter your showRSS user_id: "
+echo "Enter your showRSS user_id: \c"
 read showrssid
-echo -n "Enter PrivateInternetAccess VPN username (pXXXXXXX) or leave blank for no VPN: "
+echo "Enter PrivateInternetAccess VPN username (pXXXXXXX) or leave blank for no VPN: \c"
 read piauser
 if [ ! -z "$piauser" ]; then
-    echo -n "Enter PrivateInternetAccess VPN password: "
+    echo "Enter PrivateInternetAccess VPN password: \c"
     read piapass
 fi
 
