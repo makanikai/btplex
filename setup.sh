@@ -8,12 +8,27 @@ echo "Enter a Transmission username: \c"
 read username
 echo "Enter a Transmission password: \c"
 read password
+
 echo "Find your showRSS user_id."
 echo "Generate your custom feed and get the user_id from the url."
 echo "Example: http://showrss.info/rss.php?user_id=XXXXXX&hd=null&proper=1)"
 echo "where XXXXXX is your user_id."
 echo "Enter your showRSS user_id: \c"
 read showrssid
+
+echo "Enter your email (or leave blank) for new download notifications: \c"
+read email
+if [ ! -z "$email" ]; then
+    echo "Enter SMTP host (smtp.gmail.com): \c"
+    read smtp_host
+    echo "Enter SMTP username (username@gmail.com): \c"
+    read smtp_username
+    echo "Enter SMTP password: \c"
+    read smtp_password
+    echo "SMTP TLS? (yes/no): \c"
+    read smtp_tls
+fi
+
 echo "Enter PrivateInternetAccess VPN username (pXXXXXXX) or leave blank for no VPN: \c"
 read piauser
 if [ ! -z "$piauser" ]; then
@@ -82,9 +97,10 @@ mkdir .flexget
 cd .flexget
 cat > config.yml << EOF
 tasks:
-  task-a:
+  showrss:
     rss: http://showrss.info/rss.php?user_id=$showrssid&hd=1&proper=1
     all_series: yes
+    thetvdb_lookup: yes
     transmission:
       host: localhost
       port: 9091
@@ -93,6 +109,18 @@ tasks:
       path: /home/plex/tvshows/{{series_name}}/Season {{series_season}}
       addpaused: no
 EOF
+if [ ! -z "$email" ]; then
+cat >> config.yml << EOF
+email:
+  from: updates@btplex
+  to: $email
+  smtp_host: $smtp_host
+  smtp_username: $smtp_username
+  smtp_password: $smtp_password
+  smtp_tls: $smtp_tls
+  template: html
+EOF
+fi
 chown -R plex /var/lib/plexmediaserver
 chgrp -R plex /var/lib/plexmediaserver
 chmod -R g+rw /var/lib/plexmediaserver
