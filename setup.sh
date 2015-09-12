@@ -132,6 +132,8 @@ easy_install flexget transmissionrpc
 # Check for new television episodes at the top of every hour
 echo "SHELL=/bin/bash" > cron-file.txt
 echo "0 * * * * /usr/local/bin/flexget execute --cron" >> cron-file.txt
+# Remove small sample movie files which sometimes confuse Plex
+echo "10 * * * * find /home/plex -size -50M \\( -name \"*.avi\" -or -name \"*.mkv\" -or -name \"*.mp4\" -or -name \"*.m4v\" \\) -delete" >> cron-file.txt
 # Clean up directories where the video file was deleted by Plex at 5:30 AM every day
 echo "30 5 * * * du /home/plex/{movies,tvshows}/* | while read size filename; do if [ \$size -lt 70000 ] && [[ ! -n \$(du -a \$filename | grep .part) ]]; then rm -rf \"\$filename\"; fi done" >> cron-file.txt
 crontab -u plex cron-file.txt
