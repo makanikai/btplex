@@ -81,6 +81,7 @@ if [ ! -z "$piauser" ]; then
     echo "ip rule add from \$ip table 128" >> /etc/network/if-up.d/openvpn
     echo "ip route add table 128 to \$subnet" >> /etc/network/if-up.d/openvpn
     echo "ip route add table 128 default via \$gateway" >> /etc/network/if-up.d/openvpn
+    /etc/network/if-up.d/openvpn
     service openvpn start
 fi
 
