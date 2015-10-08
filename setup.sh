@@ -126,6 +126,11 @@ chown -R plex /var/lib/plexmediaserver
 chgrp -R plex /var/lib/plexmediaserver
 chmod -R g+rw /var/lib/plexmediaserver
 
+# Add Movies and TV Shows sections to Plex
+sudo -i -u plex LD_LIBRARY_PATH=/usr/lib/plexmediaserver/ /usr/lib/plexmediaserver/Plex\ Media\ Scanner --add-section "Movies" --type 1 --location /home/plex/movies
+sudo -i -u plex LD_LIBRARY_PATH=/usr/lib/plexmediaserver/ /usr/lib/plexmediaserver/Plex\ Media\ Scanner --add-section "TV Shows" --type 2 --location /home/plex/tvshows
+sudo -i -u plex LD_LIBRARY_PATH=/usr/lib/plexmediaserver/ /usr/lib/plexmediaserver/Plex\ Media\ Scanner --scan --refresh
+
 # Install FlexGet and trigger first run
 apt-get install -y python-setuptools
 apt-get remove -y python-six
