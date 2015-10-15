@@ -75,9 +75,12 @@ if [ ! -z "$piauser" ]; then
     echo "auth-user-pass login.conf" >> US\ East.ovpn
     cp US\ East.ovpn us_east.conf
     echo "AUTOSTART=\"us_east\"" >> /etc/default/openvpn
+    # Add rules and routing to allow incoming packet responses to bypass VPN
     echo "ip=\`ip route show | sed -n 2p | awk '{print \$NF}'\`" >> /etc/network/if-up.d/openvpn
     echo "subnet=\`ip route show | sed -n 2p | cut -d' ' -f1-3\`" >> /etc/network/if-up.d/openvpn
     echo "gateway=\`route | sed -n 3p | awk '{print \$2}'\`" >> /etc/network/if-up.d/openvpn
+    # Prevent adding duplicate rules when restarting openvpn service
+    echo "ip rule del from \$ip table 128" >> /etc/network/if-up.d/openvpn
     echo "ip rule add from \$ip table 128" >> /etc/network/if-up.d/openvpn
     echo "ip route add table 128 to \$subnet" >> /etc/network/if-up.d/openvpn
     echo "ip route add table 128 default via \$gateway" >> /etc/network/if-up.d/openvpn
