@@ -75,13 +75,17 @@ if [ ! -z "$piauser" ]; then
     echo "auth-user-pass login.conf" >> US\ East.ovpn
     cp US\ East.ovpn us_east.conf
     echo "AUTOSTART=\"us_east\"" >> /etc/default/openvpn
-    # Add rules and routing to allow incoming packet responses to bypass VPN
     echo "ip=\`ip route show | sed -n 2p | awk '{print \$NF}'\`" >> /etc/network/if-up.d/openvpn
     echo "subnet=\`ip route show | sed -n 2p | cut -d' ' -f1-3\`" >> /etc/network/if-up.d/openvpn
     echo "gateway=\`route | sed -n 3p | awk '{print \$2}'\`" >> /etc/network/if-up.d/openvpn
     # Prevent adding duplicate rules when restarting openvpn service
     echo "ip rule del from \$ip table 128" >> /etc/network/if-up.d/openvpn
+    echo "cat /var/lib/plexmediaserver/.flexget/config.yml | grep smtp_host | awk '{print \$2}' | nslookup | grep Address | tail -n+2 | awk '{print \$2}' | xargs -iIP ip rule del to IP/24 table 128" >> /etc/network/if-up.d/openvpn
+    # Route incoming packet responses to bypass VPN
     echo "ip rule add from \$ip table 128" >> /etc/network/if-up.d/openvpn
+    # Route transmission `smtp_host` IP addresses to bypass VPN
+    # PIA blocks smtp ports by default and only whitelists some of the major email providers
+    echo "cat /var/lib/plexmediaserver/.flexget/config.yml | grep smtp_host | awk '{print \$2}' | nslookup | grep Address | tail -n+2 | awk '{print \$2}' | xargs -iIP ip rule add to IP/24 table 128" >> /etc/network/if-up.d/openvpn
     echo "ip route add table 128 to \$subnet" >> /etc/network/if-up.d/openvpn
     echo "ip route add table 128 default via \$gateway" >> /etc/network/if-up.d/openvpn
     /etc/network/if-up.d/openvpn
