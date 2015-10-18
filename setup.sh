@@ -162,6 +162,8 @@ crontab -u plex cron-file.txt
 echo "SHELL=/bin/bash" > cron-file.txt
 echo "PATH=/bin:/usr/bin:/sbin" >> cron-file.txt
 echo "59 * * * * tun=\$(ifconfig | grep -c tun0); if [ \$tun -eq 0 ]; then service openvpn restart; fi" >> cron-file.txt
+# Check for and install updates to Plex Media Server
+echo "40 5 * * * cd /root; sh update.sh" >> cron-file.txt
 crontab cron-file.txt
 rm cron-file.txt
 sudo -H -u plex flexget execute
