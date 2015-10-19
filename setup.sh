@@ -45,12 +45,12 @@ echo "APT::Periodic::Unattended-Upgrade \"1\";" >> /etc/apt/apt.conf.d/20auto-up
 
 # Install Plex Media Server
 cat > update.sh << EOF
-deburl=`curl https://plex.tv/downloads | grep -m 1 -o 'http.*amd64.deb'`
-debfile=`echo $deburl | grep -o plexmediaserver_.*`
-if [ ! -f $debfile ]; then
-    wget $deburl
-    dpkg -i $debfile
-    ls | grep plexmediaserver | grep -v $debfile | xargs rm
+deburl=\`curl https://plex.tv/downloads | grep -m 1 -o 'http.*amd64.deb'\`
+debfile=\`echo \$deburl | grep -o plexmediaserver_.*\`
+if [ ! -f \$debfile ]; then
+    wget \$deburl
+    dpkg -i \$debfile
+    ls | grep plexmediaserver | grep -v \$debfile | xargs rm
 fi
 EOF
 sh update.sh
