@@ -161,6 +161,7 @@ crontab -u plex cron-file.txt
 # Restart OpenVPN if it gets disconnected
 echo "SHELL=/bin/bash" > cron-file.txt
 echo "PATH=/bin:/usr/bin:/sbin" >> cron-file.txt
+echo "58 * * * * wget -q --tries=1 --timeout=5 --spider http://google.com; if [ \$? -ne 0 ]; then service openvpn restart; fi" >> cron-file.txt
 echo "59 * * * * tun=\$(ifconfig | grep -c tun0); if [ \$tun -eq 0 ]; then service openvpn restart; fi" >> cron-file.txt
 # Check for and install updates to Plex Media Server
 echo "40 5 * * * cd /root; sh update.sh" >> cron-file.txt
