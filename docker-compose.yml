@@ -1,0 +1,79 @@
+version: '2'
+services:
+    plex:
+        container_name: plex
+        image: timhaak/plex
+        restart: always
+        volumes:
+            - ./config/plex:/config
+            - ./media:/data
+        ports:
+            - 32400:32400
+        environment:
+            - SKIP_CHOWN_CONFIG=TRUE
+        env_file: .env
+    radarr:
+        container_name: radarr
+        image: linuxserver/radarr
+        restart: always
+        volumes:
+            - ./config/radarr:/config
+            - ./media/downloads:/downloads
+            - ./media/movies:/movies
+        links:
+            - transmission
+        environment:
+            - PUID=0
+            - PGID=0
+    sonarr:
+        container_name: sonarr
+        image: linuxserver/sonarr
+        restart: always
+        volumes:
+            - ./config/sonarr:/config
+            - ./media/downloads:/downloads
+            - ./media/tvshows:/tv
+        links: 
+            - transmission
+        environment:
+            - PUID=0
+            - PGID=0
+    transmission:
+        container_name: transmission
+        image: haugene/transmission-openvpn
+        privileged: true
+        restart: always
+        volumes:
+            - ./config/transmission:/config
+            - ./media:/data
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+        environment:
+            - OPENVPN_OPTS=--inactive 3600 --ping 10 --ping-exit 60 --mute-replay-warnings 
+            - TRANSMISSION_RPC_AUTHENTICATION_REQUIRED=true
+            - TRANSMISSION_RPC_USERNAME=btuser 
+            - TRANSMISSION_RPC_PASSWORD=btpass
+            - TRANSMISSION_DOWNLOAD_DIR=/data/downloads
+            - TRANSMISSION_INCOMPLETE_DIR=/data/downloads
+            - TRANSMISSION_INCOMPLETE_DIR_ENABLED=false
+            - TRANSMISSION_HOME=/config/transmission-home
+            - TRANSMISSION_QUEUE_STALLED_ENABLED=true
+            - TRANSMISSION_QUEUE_STALLED_MINUTES=30
+            - TRANSMISSION_RATIO_LIMIT=2
+            - TRANSMISSION_RATIO_LIMIT_ENABLED=true
+        env_file: .env
+    caddy:
+        container_name: caddy
+        image: abiosoft/caddy
+        volumes:
+            - ./config/caddy/Caddyfile:/etc/Caddyfile
+            - ./config/caddy:/root/.caddy
+        ports:
+            - 8787:8787
+            - 9898:9898
+            - 9091:9091
+        links:
+            - radarr
+            - sonarr
+            - transmission

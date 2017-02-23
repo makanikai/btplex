@@ -1,0 +1,23 @@
+0.0.0.0:9898 {
+    proxy / sonarr:8989
+    tls self_signed
+    gzip
+    log /root/.caddy/sonarr-access.log
+    errors /root/.caddy/sonarr-error.log
+}
+
+0.0.0.0:8787 {
+    proxy / radarr:7878
+    tls self_signed
+    gzip
+    log /root/.caddy/radarr-access.log
+    errors /root/.caddy/radarr-error.log
+}
+
+0.0.0.0:9091 {
+    proxy / transmission:9091
+    tls self_signed
+    gzip
+    log /root/.caddy/transmission-access.log
+    errors /root/.caddy/transmission-error.log
+}

@@ -1,0 +1,15 @@
+*
+
+!.gitignore
+!docker-compose.yml
+!example.env
+!README.md
+
+!*/
+!config/caddy/Caddyfile
+
+!config/plex/Library/Application Support/Plex Media Server/Plug-in Support/Databases/com.plexapp.plugins.library.db
+!config/radarr/config.xml
+!config/radarr/nzbdrone.db
+!config/sonarr/config.xml
+!config/sonarr/nzbdrone.db

@@ -1,77 +1,50 @@
-btPlex
-======
-
-This repository contains a shell script and config files for automatically
-setting up a Plex Media Server on a Vultr VPS that includes a remote
-bittorrent client with web interface that automatically downloads your
-favourite television shows.
-
-Before running the script, lets setup some necessary accounts:
+## Install Docker
+https://docs.docker.com/engine/installation/
 
 
-### Vultr VPS
-
-* https://www.vultr.com
-* This setup runs well on the $5/month plan.
-* Deploy a new $5/month Storage Instance running Ubuntu 14.04 x64.
-
-
-### Free DNS (optional)
-
-* http://freedns.afraid.org
-* Setting up a DNS is convenient because you just have to remember a domain
-  like myvps.mooo.com instead of an IP address like 123.123.123.123.
-* Once you've created an account add a new subdomain using the IP address of
-  your new Vultr VPS.
-
-
-### Plex
-
-* https://plex.tv/users/sign_up
-* A Plex account is required to access a remote Plex Media Server. This is a
-  free account and does not require the "Plex Pass".
-
-
-### showRSS
-
-* http://showrss.info
-* Sign up for a showRSS account and select your favourite television shows. The
-  RSS feed that is created for you is what the server will use to download your
-  shows.
-
-
-### PrivateInternetAccess VPN
-
-* https://www.privateinternetaccess.com
-* If your VPS downloads torrents without a VPN it will likely get shutdown very
-  quickly.
-
-
-Installation
-------------
-
+#### Ex. Ubuntu 16.04 VPS
 ```bash
-# Login to your VPS and bind your local port 8888 to the server's Plex
-# port 32400. This is required so we can enable remote access. By default,
-# Plex Media Server only allows connections from localhost.
-$ ssh root@myvps.mooo.com -L 8888:localhost:32400
-
-# Download and run the setup script
-$ wget https://raw.githubusercontent.com/ryanss/btplex/master/setup.sh && sh setup.sh
+apt-get update
+apt-get install -y --no-install-recommends \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    software-properties-common \
+    git
+curl -fsSL https://apt.dockerproject.org/gpg | apt-key add
+add-apt-repository \
+       "deb https://apt.dockerproject.org/repo/ \
+       ubuntu-$(lsb_release -cs) \
+       main"
+apt-get update
+apt-get install -y docker-engine python-pip
+pip install --upgrade pip setuptools
+pip install docker-compose
 ```
 
-Enable remote access by visiting
-http://localhost:8888/web/index.html#!/settings/server in your local browser
-and logging in with the Plex account credentials created earlier. This will
-link the remote server to your Plex account.
 
-The Plex Media Server can now be access via http://myvps.mooo.com:32400/web and
-the Transmission BitTorrent client web interface via
-http://myvps.mooo.com:9091. You should already see the latest television shows
-downloading in Transmission and they will automatically be added to Plex once
-they are done downloading.
+## Download & Run btplex
+```bash
+git clone https://github.com/ryanss/btplex.git
+cd btplex
+cp example.env .env
+# Add Plex/PIA credentials to .env
+docker-compose up -d
+```
 
-Check that OpenVPN is working by adding the following torrent to transmission
-and checking that the IP address shown is not the IP address of your
-Vultr VPS.
-`http://checkmytorrentip.net/torrentip/checkMyTorrentIp.png.torrent`
+
+## Post Install
+
+- Plex: https://yourhost:32400/web/ (Login: Plex account - https://www.plex.tv/sign-up/)
+- Radarr: https://yourhost:8787/ (Login: btuser/btpass)
+- Sonarr: https://yourhost:9898/ (Login: btuser/btpass)
+- Transmission: https://yourhost:9091/ (Login: btuser/btpass)
+
+
+#### Enable Proxy in Radarr and Sonarr
+Settings > General > Security > Proxy Settings
+- Use Proxy: Socks5
+- Hostname: proxy-nl.privateinternetaccess.com
+- Port: 1080
+- User/Pass: https://www.privateinternetaccess.com/pages/client-control-panel (PPTP/L2TP/SOCKS Username and Password)
+
