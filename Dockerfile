@@ -9,6 +9,7 @@ RUN apt-get -q update && \
     mkdir /acd
 
 ADD crontab /etc/cron.d/crontab
+RUN chmod 0644 /etc/cron.d/crontab
 ADD cronjob.sh /cronjob.sh
 RUN chmod +x /cronjob.sh
 
