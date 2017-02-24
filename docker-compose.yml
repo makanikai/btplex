@@ -2,11 +2,15 @@ version: '2'
 services:
     plex:
         container_name: plex
-        image: timhaak/plex
+        build: .
+        privileged: true
         restart: always
         volumes:
             - ./config/plex:/config
             - ./media:/data
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
         ports:
             - 32400:32400
         environment:
@@ -20,6 +24,9 @@ services:
             - ./config/radarr:/config
             - ./media/downloads:/downloads
             - ./media/movies:/movies
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
         links:
             - transmission
         environment:
@@ -33,6 +40,9 @@ services:
             - ./config/sonarr:/config
             - ./media/downloads:/downloads
             - ./media/tvshows:/tv
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
         links: 
             - transmission
         environment:

@@ -1,9 +1,11 @@
 *
 
 !.gitignore
+!Dockerfile
+!README.md
+!crontab
 !docker-compose.yml
 !example.env
-!README.md
 
 !*/
 !config/caddy/Caddyfile

@@ -29,6 +29,7 @@ git clone https://github.com/ryanss/btplex.git
 cd btplex
 cp example.env .env
 # Add Plex/PIA credentials to .env
+# Create rclone config for ACD and ACDcrypt in config/plex/rclone.conf
 docker-compose up -d
 ```
 

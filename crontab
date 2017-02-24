@@ -1,0 +1,4 @@
+*/5 * * * * if [ -z "$(mount | grep /data/acd)" ]; then rclone --config /config/rclone.conf mount ACDcrypt: /data/acd; fi 
+*/5 * * * * rclone --config /config/rclone.conf moveto /data/movies/ ACDcrypt:movies
+*/5 * * * * rclone --config /config/rclone.conf moveto /data/tvshows/ ACDcrypt:tvshows
+
