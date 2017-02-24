@@ -6,10 +6,10 @@ RUN apt-get -q update && \
     unzip rclone-current-linux-amd64.zip && \
     cd rclone-*-linux-amd64 && \
     cp rclone /bin/ && \
-    mkdir /data/acd
+    mkdir /acd
 
 ADD crontab /etc/cron.d/crontab
 ADD cronjob.sh /cronjob.sh
 RUN chmod +x /cronjob.sh
 
-CMD rclone --config /config/rclone.conf mount ACDcrypt: /data/acd & cron && ./start.sh
+CMD rclone --config /config/rclone.conf mount ACDcrypt: /acd & cron && ./start.sh
