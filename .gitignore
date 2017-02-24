@@ -3,6 +3,7 @@
 !.gitignore
 !Dockerfile
 !README.md
+!cronjob.sh
 !crontab
 !docker-compose.yml
 !example.env
