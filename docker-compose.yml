@@ -28,6 +28,7 @@ services:
             - 8.8.8.8
             - 8.8.4.4
         links:
+            - jackett
             - transmission
         environment:
             - PUID=0
@@ -44,10 +45,18 @@ services:
             - 8.8.8.8
             - 8.8.4.4
         links: 
+            - jackett
             - transmission
         environment:
             - PUID=0
             - PGID=0
+    jackett:
+        container_name: jackett
+        image: linuxserver/jackett
+        restart: always
+        volumes:
+            - ./config:/config
+            - ./media/downloads:/downloads
     transmission:
         container_name: transmission
         image: haugene/transmission-openvpn
@@ -86,8 +95,10 @@ services:
         ports:
             - 8787:8787
             - 9898:9898
+            - 9117:9117
             - 9091:9091
         links:
             - radarr
             - sonarr
+            - jackett
             - transmission

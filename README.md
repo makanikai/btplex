@@ -39,6 +39,7 @@ docker-compose up -d
 - Plex: https://yourhost:32400/web/ (Login: Plex account - https://www.plex.tv/sign-up/)
 - Radarr: https://yourhost:8787/ (Login: btuser/btpass)
 - Sonarr: https://yourhost:9898/ (Login: btuser/btpass)
+- Jackett: https://yourhost:9117/ (Pass: btpass)
 - Transmission: https://yourhost:9091/ (Login: btuser/btpass)
 
 

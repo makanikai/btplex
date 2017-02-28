@@ -1,0 +1,11 @@
+{
+  "Port": 9117,
+  "AllowExternal": true,
+  "APIKey": "7evdes54209nqhzysjxvgriev0i5cfkb",
+  "AdminPassword": "207da12c2fa1303b3a47b7dd59751c88a5197114fdc78b7c1de931d782f6531d34b33b277cebb54e1eec620256011c5261222729b2215a554ef8f3247e10e24b",
+  "InstanceId": "2db10xlumian4v8b2k6e805bukb3hwqwhucyz5y0uq0dfjo29okwal8s06hejvhq",
+  "BlackholeDir": "",
+  "UpdateDisabled": false,
+  "UpdatePrerelease": false,
+  "BasePathOverride": ""
+}

@@ -15,4 +15,6 @@
 !config/radarr/config.xml
 !config/radarr/nzbdrone.db
 !config/sonarr/config.xml
-!config/sonarr/nzbdrone.db
+!config/sonarr/nzbdrone.db/
+!config/jackett/ServerConfig.json
+!config/jackett/Indexers/skytorrents.json

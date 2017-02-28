@@ -14,6 +14,14 @@
     errors /root/.caddy/radarr-error.log
 }
 
+0.0.0.0:9117 {
+    proxy / jackett:9117
+    tls self_signed
+    gzip
+    log /root/.caddy/jackett-access.log
+    errors /root/.caddy/jackett-error.log
+}
+
 0.0.0.0:9091 {
     proxy / transmission:9091
     tls self_signed
