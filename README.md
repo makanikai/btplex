@@ -34,19 +34,11 @@ docker-compose up -d
 ```
 
 
-## Post Install
+## URLs
 
 - Plex: https://yourhost:32400/web/ (Login: Plex account - https://www.plex.tv/sign-up/)
 - Radarr: https://yourhost:8787/ (Login: btuser/btpass)
 - Sonarr: https://yourhost:9898/ (Login: btuser/btpass)
 - Jackett: https://yourhost:9117/ (Pass: btpass)
 - Transmission: https://yourhost:9091/ (Login: btuser/btpass)
-
-
-#### Enable Proxy in Radarr and Sonarr
-Settings > General > Security > Proxy Settings
-- Use Proxy: Socks5
-- Hostname: proxy-nl.privateinternetaccess.com
-- Port: 1080
-- User/Pass: https://www.privateinternetaccess.com/pages/client-control-panel (PPTP/L2TP/SOCKS Username and Password)
 
