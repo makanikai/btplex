@@ -1,30 +1,30 @@
-0.0.0.0:9898 {
+{$CADDY_HOSTNAME}:9898, *:9898 {
     proxy / sonarr:8989
-    tls self_signed
+    tls {$CADDY_TLS}
     gzip
     log /root/.caddy/sonarr-access.log
     errors /root/.caddy/sonarr-error.log
 }
 
-0.0.0.0:8787 {
+{$CADDY_HOSTNAME}:8787, *:8787 {
     proxy / radarr:7878
-    tls self_signed
+    tls {$CADDY_TLS}
     gzip
     log /root/.caddy/radarr-access.log
     errors /root/.caddy/radarr-error.log
 }
 
-0.0.0.0:9117 {
+{$CADDY_HOSTNAME}:9117, *:9117 {
     proxy / jackett:9117
-    tls self_signed
+    tls {$CADDY_TLS}
     gzip
     log /root/.caddy/jackett-access.log
     errors /root/.caddy/jackett-error.log
 }
 
-0.0.0.0:9091 {
+{$CADDY_HOSTNAME}:9091, *:9091 {
     proxy / transmission:9091
-    tls self_signed
+    tls {$CADDY_TLS}
     gzip
     log /root/.caddy/transmission-access.log
     errors /root/.caddy/transmission-error.log

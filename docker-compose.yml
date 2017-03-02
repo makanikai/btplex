@@ -13,11 +13,11 @@ services:
             - 8.8.4.4
         ports:
             - 32400:32400
+        env_file: .env
         environment:
             - SKIP_CHOWN_CONFIG=TRUE
             - HTTP_PROXY=
             - HTTPS_PROXY=
-        env_file: .env
     radarr:
         container_name: radarr
         image: linuxserver/radarr
@@ -70,6 +70,7 @@ services:
         dns:
             - 8.8.8.8
             - 8.8.4.4
+        env_file: .env
         environment:
             - OPENVPN_OPTS=--inactive 3600 --ping 10 --ping-exit 60 --mute-replay-warnings 
             - TRANSMISSION_RPC_AUTHENTICATION_REQUIRED=true
@@ -87,14 +88,15 @@ services:
             - TRANSMISSION_SEED_QUEUE_ENABLED=true
             - TRANSMISSION_SEED_QUEUE_SIZE=2
             - TRANSMISSION_UPLOAD_SLOTS_PER_TORRENT=3
-        env_file: .env
     caddy:
         container_name: caddy
         image: abiosoft/caddy
+        restart: always
         volumes:
             - ./config/caddy/Caddyfile:/etc/Caddyfile
             - ./config/caddy:/root/.caddy
         ports:
+            - 443:443
             - 8787:8787
             - 9898:9898
             - 9117:9117
@@ -104,3 +106,7 @@ services:
             - sonarr
             - jackett
             - transmission
+        env_file: .env
+        environment:
+            - HTTP_PROXY=
+            - HTTPS_PROXY=
