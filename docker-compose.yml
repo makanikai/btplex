@@ -8,6 +8,8 @@ services:
         volumes:
             - ./config/plex:/config
             - ./media:/data
+            - ./rclone.conf:/rclone.conf
+            - ./config/caddy:/caddy
         dns:
             - 8.8.8.8
             - 8.8.4.4
