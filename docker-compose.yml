@@ -9,12 +9,9 @@ services:
             - ./config/plex:/config
             - ./media:/data
             - ./rclone.conf:/rclone.conf
-            - ./config/caddy:/caddy
         dns:
             - 8.8.8.8
             - 8.8.4.4
-        ports:
-            - 32400:32400
         env_file: .env
         environment:
             - SKIP_CHOWN_CONFIG=TRUE
@@ -99,11 +96,13 @@ services:
             - ./config/caddy:/root/.caddy
         ports:
             - 443:443
+            - 32400:32400
             - 8787:8787
             - 9898:9898
             - 9117:9117
             - 9091:9091
         links:
+            - plex
             - radarr
             - sonarr
             - jackett
