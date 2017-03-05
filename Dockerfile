@@ -10,12 +10,17 @@ RUN apt-get -q update && \
 
 ADD crontab /etc/cron.d/crontab
 RUN chmod 0644 /etc/cron.d/crontab
+
 ADD cronjob.sh /cronjob.sh
 RUN chmod +x /cronjob.sh
+
+ADD backup.sh /backup.sh
+RUN chmod +x /backup.sh
+
 ADD update.sh /update.sh
 RUN chmod +x /update.sh
 RUN ./update.sh
 
-VOLUME "/rclone.conf"
+VOLUME ["/rclone.conf", "/btplex"]
 
 CMD rclone --config /rclone.conf mount ACDcrypt: /acd & cron && ./start.sh

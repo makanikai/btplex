@@ -9,6 +9,7 @@ services:
             - ./config/plex:/config
             - ./media:/data
             - ./rclone.conf:/rclone.conf
+            - ./:/btplex
         dns:
             - 8.8.8.8
             - 8.8.4.4

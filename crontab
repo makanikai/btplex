@@ -1,3 +1,4 @@
 */10 * * * * root /cronjob.sh
+0 3 * * * root /backup.sh
 0 3 * * * root /update.sh
 
