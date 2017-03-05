@@ -59,6 +59,7 @@ services:
         volumes:
             - ./config:/config
             - ./media/downloads:/downloads
+        env_file: config.env
     transmission:
         container_name: transmission
         image: haugene/transmission-openvpn
