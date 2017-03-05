@@ -3,6 +3,7 @@
 !.gitignore
 !Dockerfile
 !README.md
+!backup.sh
 !cronjob.sh
 !crontab
 !docker-compose.yml
