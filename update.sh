@@ -5,6 +5,6 @@ if [ ! -f $debfile ]; then
     wget $deburl
     dpkg -i $debfile
     ls | grep plexmediaserver | grep -v $debfile | xargs rm
-    kill -9 $(ps aux | grep -m1 Plex | awk '{print $2}')
+    kill -9 $(ps aux | grep -m1 Plex | awk '{print $2}') || true
 fi
 
