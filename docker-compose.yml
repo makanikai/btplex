@@ -12,7 +12,7 @@ services:
         dns:
             - 8.8.8.8
             - 8.8.4.4
-        env_file: .env
+        env_file: config.env
         environment:
             - SKIP_CHOWN_CONFIG=TRUE
             - HTTP_PROXY=
@@ -69,7 +69,7 @@ services:
         dns:
             - 8.8.8.8
             - 8.8.4.4
-        env_file: .env
+        env_file: config.env
         environment:
             - OPENVPN_OPTS=--inactive 3600 --ping 10 --ping-exit 60 --mute-replay-warnings 
             - TRANSMISSION_RPC_AUTHENTICATION_REQUIRED=true
@@ -107,7 +107,7 @@ services:
             - sonarr
             - jackett
             - transmission
-        env_file: .env
+        env_file: config.env
         environment:
             - HTTP_PROXY=
             - HTTPS_PROXY=

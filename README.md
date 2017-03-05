@@ -82,8 +82,8 @@ cd btplex
 
  
 ## Configure btplex
-* `cp example.env .env`
-* Edit `.env` file
+* `cp example.env config.env`
+* Edit `config.env` file
   * Set `CADDY_HOSTNAME` to your dynamic DNS host (ex. yourhost.duckdns.org) or
     leave blank if you will just access your server via IP address
   * If your domain's suffix is on the
@@ -250,7 +250,7 @@ password2 = ***
 
 ## Run btplex
 ```bash
-docker-compose up -d
+docker-compose up --build -d
 ```
 
 
