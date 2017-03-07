@@ -73,7 +73,7 @@ services:
             - 8.8.4.4
         env_file: config.env
         environment:
-            - OPENVPN_OPTS=--inactive 3600 --ping 10 --ping-exit 60 --mute-replay-warnings 
+            - OPENVPN_OPTS=--mute-replay-warnings 
             - TRANSMISSION_RPC_AUTHENTICATION_REQUIRED=true
             - TRANSMISSION_RPC_USERNAME=btuser 
             - TRANSMISSION_RPC_PASSWORD=btpass
