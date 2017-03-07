@@ -16,8 +16,8 @@ services:
         env_file: config.env
         environment:
             - SKIP_CHOWN_CONFIG=TRUE
-            - HTTP_PROXY=
-            - HTTPS_PROXY=
+            - http_proxy=
+            - https_proxy=
     radarr:
         container_name: radarr
         image: linuxserver/radarr
@@ -111,5 +111,5 @@ services:
             - transmission
         env_file: config.env
         environment:
-            - HTTP_PROXY=
-            - HTTPS_PROXY=
+            - http_proxy=
+            - https_proxy=
