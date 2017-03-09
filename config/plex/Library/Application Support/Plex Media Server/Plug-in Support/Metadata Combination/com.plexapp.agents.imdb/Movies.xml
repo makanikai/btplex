@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf8'?>
+<combine class="Movie">
+  <sources>
+    <agent>com.plexapp.agents.imdb</agent>
+  </sources>
+</combine>
