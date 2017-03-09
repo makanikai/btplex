@@ -21,6 +21,6 @@ ADD update.sh /update.sh
 RUN chmod +x /update.sh
 RUN ./update.sh
 
-VOLUME ["/rclone.conf", "/btplex"]
+VOLUME /rclone.conf /btplex
 
 CMD rclone --config /rclone.conf mount ACDcrypt: /acd & cron && ./start.sh

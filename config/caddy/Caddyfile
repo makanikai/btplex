@@ -12,7 +12,12 @@
 }
 
 {$CADDY_HOSTNAME}:9898, *:9898 {
-    proxy / sonarr:8989
+    proxy / sonarr:8989 {
+        transparent
+        websocket
+        keepalive 1
+    }
+    timeouts 1m
     tls {$CADDY_TLS}
     gzip
     log /root/.caddy/sonarr-access.log
@@ -20,7 +25,12 @@
 }
 
 {$CADDY_HOSTNAME}:8787, *:8787 {
-    proxy / radarr:7878
+    proxy / radarr:7878 {
+        transparent
+        websocket
+        keepalive 1
+    }
+    timeouts 1m
     tls {$CADDY_TLS}
     gzip
     log /root/.caddy/radarr-access.log
@@ -36,7 +46,12 @@
 }
 
 {$CADDY_HOSTNAME}:9091, *:9091 {
-    proxy / transmission:9091
+    proxy / transmission:9091 {
+        transparent
+        websocket
+        keepalive 1
+    }
+    timeouts 1m
     tls {$CADDY_TLS}
     gzip
     log /root/.caddy/transmission-access.log
