@@ -1,0 +1,12 @@
+FROM timhaak/plex
+
+RUN apt-get update && apt-get install cron
+
+ADD crontab-noacd /etc/cron.d/crontab
+RUN chmod 0644 /etc/cron.d/crontab
+
+ADD update.sh /update.sh
+RUN chmod +x /update.sh
+RUN ./update.sh
+
+CMD cron && ./start.sh
