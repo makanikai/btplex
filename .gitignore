@@ -5,6 +5,7 @@
 !Dockerfile-noacd
 !Dockerfile-transmission
 !README.md
+!README-rclone.md
 !backup.sh
 !cronjob-plex.sh
 !cronjob-transmission.sh
