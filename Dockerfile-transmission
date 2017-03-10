@@ -1,0 +1,11 @@
+FROM haugene/transmission-openvpn
+
+RUN apt-get -q update && apt-get install -qy cron 
+
+ADD crontab-transmission /etc/cron.d/crontab
+RUN chmod 0644 /etc/cron.d/crontab
+
+ADD cronjob-transmission.sh /cronjob.sh
+RUN chmod +x /cronjob.sh
+
+CMD cron && dumb-init /etc/openvpn/start.sh

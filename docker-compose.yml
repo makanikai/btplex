@@ -2,7 +2,9 @@ version: '2'
 services:
     plex:
         container_name: plex
-        build: .
+        build:
+            context: .
+            dockerfile: Dockerfile-plex
         privileged: true
         restart: always
         volumes:
@@ -62,7 +64,9 @@ services:
         env_file: config.env
     transmission:
         container_name: transmission
-        image: haugene/transmission-openvpn
+        build:
+            context: .
+            dockerfile: Dockerfile-transmission
         privileged: true
         restart: always
         volumes:

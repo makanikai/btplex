@@ -1,11 +1,14 @@
 *
 
 !.gitignore
-!Dockerfile
+!Dockerfile-plex
+!Dockerfile-transmission
 !README.md
 !backup.sh
-!cronjob.sh
-!crontab
+!cronjob-plex.sh
+!cronjob-transmission.sh
+!crontab-plex
+!crontab-transmission
 !docker-compose.yml
 !example.env
 !update.sh
