@@ -125,7 +125,7 @@ docker-compose up --build -d
 
 ## URLs
 
-- Plex: [https://yourhost.duckdns.org:32400/web/](https://yourhost:32400/web/) (Login: Plex account)
+- Plex: [https://yourhost.duckdns.org:32400/web/index.html](https://yourhost:32400/web/index.html) (Login: Plex account)
 - Radarr: [https://yourhost.duckdns.org:8787/](https://yourhost.duckdns.org:8787/) (Login: btuser/btpass)
 - Sonarr: [https://yourhost.duckdns.org:9898/](https://yourhost.duckdns.org:9898/) (Login: btuser/btpass)
 - Jackett: [https://yourhost.duckdns.org:9117/](https://yourhost.duckdns.org:9117/) (Pass: btpass)
