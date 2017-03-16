@@ -11,8 +11,7 @@ debfile=`echo $deburl | grep -o plexmediaserver_.*`
 
 if [ ! -f $debfile ]; then
     wget -q $deburl
-    dpkg -i $debfile
-    ls | grep plexmediaserver | grep -v $debfile | xargs rm
-    kill -9 $(ps aux | grep -m1 Plex | awk '{print $2}') || true
+    dpkg -i $debfile 2> /dev/null
+    ls | grep plexmediaserver | grep -v $debfile | xargs -r rm
+    kill -9 $(ps aux | grep -m1 Plex | awk '{print $2}') 2> /dev/null || true
 fi
-
