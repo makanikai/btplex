@@ -1,7 +1,7 @@
-# Set Plex Custom server access URL
+# Set Plex Custom server access URLs
 if [ -e /config/Library/Application\ Support/Plex\ Media\ Server/Preferences.xml ] && ! grep -q customConnections /config/Library/Application\ Support/Plex\ Media\ Server/Preferences.xml && [ $CADDY_HOSTNAME -ne "localhost" ];
 then
-    sed -i "s/\/>/\ customConnections=\"https:\/\/$CADDY_HOSTNAME:32400\"\/>/g" /config/Library/Application\ Support/Plex\ Media\ Server/Preferences.xml;
+    sed -i "s/\/>/\ customConnections=\"https:\/\/$CADDY_HOSTNAME:32400,http:\/\/$CADDY_HOSTNAME:32400\"\/>/g" /config/Library/Application\ Support/Plex\ Media\ Server/Preferences.xml;
 fi
 
 

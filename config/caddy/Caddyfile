@@ -1,15 +1,15 @@
-{$CADDY_HOSTNAME}:32400, *:32400 {
-    proxy / plex:32400 {
-        transparent
-        websocket
-        keepalive 1
-    }
-    timeouts 1m
-    tls {$CADDY_TLS}
-    gzip
-    log /root/.caddy/plex-access.log
-    errors /root/.caddy/plex-error.log
-}
+#{$CADDY_HOSTNAME}:32400, *:32400 {
+#    proxy / plex:32400 {
+#        transparent
+#        websocket
+#        keepalive 1
+#    }
+#    timeouts 1m
+#    tls {$CADDY_TLS}
+#    gzip
+#    log /root/.caddy/plex-access.log
+#    errors /root/.caddy/plex-error.log
+#}
 
 {$CADDY_HOSTNAME}:9898, *:9898 {
     proxy / sonarr:8989 {
