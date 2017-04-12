@@ -119,7 +119,7 @@ docker-compose up --build     # Run in foreground to see logs and debug issues
 ```bash
 docker-compose down
 docker-compose pull
-docker-compose up --build -d
+docker-compose up --build --force-recreate -d
 ```
 
 
