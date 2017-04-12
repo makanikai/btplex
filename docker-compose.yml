@@ -105,6 +105,7 @@ services:
             - TRANSMISSION_SEED_QUEUE_ENABLED=true
             - TRANSMISSION_SEED_QUEUE_SIZE=2
             - TRANSMISSION_UPLOAD_SLOTS_PER_TORRENT=3
+            - TRANSMISSION_WATCH_DIR_ENABLED=false
     caddy:
         container_name: caddy
         image: abiosoft/caddy
