@@ -23,4 +23,4 @@ RUN ./update.sh
 
 VOLUME /rclone.conf /btplex
 
-CMD rclone --config /rclone.conf mount ACDcrypt: /acd & cron && ./start.sh
+CMD rclone --config /rclone.conf mount --timeout 10s ACDcrypt: /acd & cron && ./start.sh
