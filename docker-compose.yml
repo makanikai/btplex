@@ -4,7 +4,7 @@ services:
         container_name: plex
         build:
             context: .
-            dockerfile: Dockerfile-plex
+            dockerfile: Dockerfile
         privileged: true
         restart: always
         volumes:
@@ -28,6 +28,7 @@ services:
             - 8.8.4.4
         env_file: config.env
         environment:
+            - LD_LIBRARY_PATH=/usr/lib/plexmediaserver
             - PLEX_ALLOWED_NETWORKS=0
             - PLEX_DISABLE_SECURITY=0
             - SKIP_CHOWN_CONFIG=TRUE
