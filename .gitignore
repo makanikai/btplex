@@ -1,17 +1,15 @@
 *
 
 !.gitignore
-!Dockerfile-plex
+!Dockerfile
 !Dockerfile-noacd
 !Dockerfile-transmission
 !README.md
 !README-rclone.md
 !backup.sh
-!cronjob-plex.sh
-!cronjob-transmission.sh
-!crontab-plex
+!cronjob.sh
+!crontab
 !crontab-noacd
-!crontab-transmission
 !docker-compose.yml
 !example.env
 !update.sh

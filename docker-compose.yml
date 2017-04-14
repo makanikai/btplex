@@ -77,9 +77,7 @@ services:
         env_file: config.env
     transmission:
         container_name: transmission
-        build:
-            context: .
-            dockerfile: Dockerfile-transmission
+        image: haugene/transmission-openvpn
         privileged: true
         restart: always
         volumes:
@@ -90,7 +88,7 @@ services:
             - 8.8.4.4
         env_file: config.env
         environment:
-            - OPENVPN_OPTS=--mute-replay-warnings 
+            - OPENVPN_OPTS=--inactive 3600 --ping 30 --ping-exit 300
             - TRANSMISSION_RPC_AUTHENTICATION_REQUIRED=true
             - TRANSMISSION_RPC_USERNAME=btuser 
             - TRANSMISSION_RPC_PASSWORD=btpass
