@@ -17,6 +17,7 @@ RUN chmod +x /cronjob.sh
 ADD backup.sh /backup.sh
 RUN chmod +x /backup.sh
 
+
 ADD update.sh /update.sh
 RUN chmod +x /update.sh
 RUN /update.sh
@@ -28,4 +29,4 @@ RUN /b2.sh
 
 VOLUME /btplex
 
-CMD rclone --config /rclone.conf mount B2:btplex /b2 & cron && ./start.sh
+CMD rclone --config /rclone.conf mount B2:btplex /b2 & cron && ./update.sh && ./start.sh
