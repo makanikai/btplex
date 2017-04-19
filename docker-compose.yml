@@ -10,7 +10,6 @@ services:
         volumes:
             - ./config/plex:/config
             - ./media:/data
-            - ./rclone.conf:/rclone.conf
             - ./:/btplex
         ports:
             - 32400:32400

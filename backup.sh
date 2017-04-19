@@ -20,4 +20,4 @@ tar czvf /backup.tar.gz /btplex \
     --exclude /btplex/config/sonarr/UpdateLogs \
     --exclude /btplex/config/sonarr/xdg
 
-rclone --config /rclone.conf copy /backup.tar.gz ACD: >> /config/rclone.log 2>&1
+rclone --config /rclone.conf copy /backup.tar.gz B2:btplex >> /config/rclone.log 2>&1

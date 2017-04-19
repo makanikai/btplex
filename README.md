@@ -12,7 +12,8 @@ and easily as possible on any computer capable of running docker
 * [Tranmission](https://transmissionbt.com) - bittorrent client
 * [Private Internet Access](https://www.privateinternetaccess.com/) - safely
   bittorrent through a secure, anonymous VPN
-* [rclone](http://rclone.org) - Use an unlimited, encrypt Amazon Cloud Drive for your media storage
+* [rclone](http://rclone.org) - use Backblaze B2 cloud storage to cheaply store
+  your media
 * [Caddy](https://caddyserver.com) & [Let's Encrypt](https://letsencrypt.org)- Access
   your media server applications through a secure, encrypted connection
 
@@ -40,13 +41,11 @@ and easily as possible on any computer capable of running docker
 * Luna Node $5/month VPS runs btplex pretty well.
 * Not required if you are going to run btplex from a home PC or existing server.
 
-#### Amazon Cloud Drive
-* https://www.amazon.com/clouddrive/
-* $5/month for unlimited cloud storage.
+#### Backblaze B2 Cloud Storage
+* https://www.backblaze.com/b2/cloud-storage.html
+* $5/month/TB for cloud storage.
 * Not required if you are going to store your media on a local PC.
-* Create a folder called "backup" in the root directory of your cloud drive
-  which rclone will mount in your Plex container.
-
+* Create a bucket called `btplex` which rclone will mount in your Plex container.
 
 
 ## Install Docker
@@ -101,8 +100,7 @@ cd btplex
   * Uncomment and set the username and password to your
     [Private Internet Access](https://www.privateinternetaccess.com/) Socks proxy listed in the
     [Control Panel](https://www.privateinternetaccess.com/pages/client-control-panel)
-* To use Amazon Cloud Drive: [create `rclone.conf` file](README-rclone.md)
-* If not using Amazon Cloud Drive: Replace `Dockerfile-plex` with `Dockerfile-noacd`
+* If not using B2 Cloud Storage: Replace `Dockerfile` with `Dockerfile-nob2`
   in `docker-compose.yml` and modify the local `./media` paths in plex, sonarr,
   radarr `volumes` sections
 

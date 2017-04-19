@@ -2,14 +2,14 @@
 
 !.gitignore
 !Dockerfile
-!Dockerfile-noacd
-!Dockerfile-transmission
+!Dockerfile-nob2
 !README.md
 !README-rclone.md
 !backup.sh
+!b2.sh
 !cronjob.sh
 !crontab
-!crontab-noacd
+!crontab-nob2
 !docker-compose.yml
 !example.env
 !update.sh
