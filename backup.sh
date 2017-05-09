@@ -1,5 +1,5 @@
-tar czvf /backup.tar.gz /btplex \
-    --exclude /btplex/media \
+tar czvf /btplex/config/backup.tar.gz /btplex \
+    --exclude /btplex/config/backup.tar.gz \
     --exclude /btplex/config/plex/Library/Application\ Support/Plex\ Media\ Server/Cache \
     --exclude /btplex/config/plex/Library/Application\ Support/Plex\ Media\ Server/Codecs \
     --exclude /btplex/config/plex/Library/Application\ Support/Plex\ Media\ Server/Crash\ Reports \
@@ -18,6 +18,5 @@ tar czvf /backup.tar.gz /btplex \
     --exclude /btplex/config/sonarr/logs \
     --exclude /btplex/config/sonarr/MediaCover \
     --exclude /btplex/config/sonarr/UpdateLogs \
-    --exclude /btplex/config/sonarr/xdg
-
-rclone --config /rclone.conf copy /backup.tar.gz B2:btplex >> /config/rclone.log 2>&1
+    --exclude /btplex/config/sonarr/xdg \
+    --exclude /btplex/media

@@ -5,7 +5,6 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
-        privileged: true
         restart: always
         volumes:
             - ./config/plex:/config
@@ -22,9 +21,6 @@ services:
             - 32413:32413/udp
             - 32414:32414/udp
             - 32469:32469
-        dns:
-            - 8.8.8.8
-            - 8.8.4.4
         env_file: config.env
         environment:
             - LD_LIBRARY_PATH=/usr/lib/plexmediaserver
@@ -119,7 +115,6 @@ services:
             - 9117:9117
             - 9091:9091
         links:
-            - plex
             - radarr
             - sonarr
             - jackett
